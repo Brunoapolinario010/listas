@@ -1,0 +1,9 @@
+# Prerequisites
+*
+*.d
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+*.vscode
