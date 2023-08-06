@@ -176,20 +176,18 @@ void pesquisarProdutoPorNome(Produto produtos[], int quantidadeProdutos) {
 
     bool encontrado = false;
     for (int i = 0; i < quantidadeProdutos; i++) {
-        for (int j = 0; produtos[i].nome[j] != '\0' && nome[j] != '\0'; j++) {
-            if (produtos[i].nome[j] == nome[j]) {
-                printf("\n");
-                printf("--------Produto %d--------\n", i + 1);
-                printf("\n");
-                printf("Código do produto: %d\n", produtos[i].codigo);
-                printf("Nome do produto: %s\n", produtos[i].nome);
-                printf("Quantidade do produto: %d\n", produtos[i].quantidade);
-                printf("Preço do produto: %.2f\n", produtos[i].preco);
-                printf("Fornecedor do produto: %s\n", produtos[i].fornecedor);
-                printf("\n");
+        if(strcmp(produtos[i].nome, nome) == 0) {
+            printf("\n");
+            printf("--------Produto %d--------\n", i + 1);
+            printf("\n");
+            printf("Código do produto: %d\n", produtos[i].codigo);
+            printf("Nome do produto: %s\n", produtos[i].nome);
+            printf("Quantidade do produto: %d\n", produtos[i].quantidade);
+            printf("Preço do produto: %.2f\n", produtos[i].preco);
+            printf("Fornecedor do produto: %s\n", produtos[i].fornecedor);
+            printf("\n");
 
-                encontrado = true;
-            }
+            encontrado = true;
         }
     }
 
