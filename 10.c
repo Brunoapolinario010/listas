@@ -232,11 +232,39 @@ void editarProduto(Produto produtos[], int quantidadeProdutos) {
     }
 }
 
+void excluirProduto(Produto produtos[], int quantidadeProdutos) {
+    int codigo;
+
+    printf("\n");
+    printf("--------Exclusão de produto--------\n");
+    printf("\n");
+
+    printf("Digite o código do produto: ");
+    scanf("%d", &codigo);
+
+    bool encontrado = false;
+    for(int i = 0; i < quantidadeProdutos; i++) {
+        if(produtos[i].codigo == codigo) {
+            produtos[i].codigo = 0;
+            strcpy(produtos[i].nome, "");
+            produtos[i].quantidade = 0;
+            produtos[i].preco = 0;
+            strcpy(produtos[i].fornecedor, "");
+
+            printf("Produto excluído com sucesso!\n");
+            encontrado = true;
+        }
+    }
+
+    if(!encontrado) {
+        printf("Produto não encontrado!\n");
+    }
+}
+
 void main() {
     int opcao;
     Produto produtos[100];
     int quantidadeProdutos = 0;
-
 
     do {
         printf("--------Menu--------\n");
@@ -247,13 +275,13 @@ void main() {
         printf("5 - Pesquisar produto por código\n");
         printf("6 - Pesquisar produto por nome\n");
         printf("7 - Editar Produto\n");
+        printf("8 - Excluir Produto\n");
         printf("0 - Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
         printf("\n");
 
-        switch (opcao)
-        {
+        switch (opcao) {
         case 1:
             cadastrarProduto(produtos, &quantidadeProdutos);
             break;
@@ -280,6 +308,10 @@ void main() {
         
         case 7:
             editarProduto(produtos, quantidadeProdutos);
+            break;
+        
+        case 8:
+            excluirProduto(produtos, quantidadeProdutos);
             break;
         
         case 0:

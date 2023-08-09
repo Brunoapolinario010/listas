@@ -1,13 +1,10 @@
 #include <stdio.h>
 
 void consoanteMaiuscula (char *p) {
-    char vogais[] = "AEIOUaeiou";
-
     for (int i = 0; p[i] != '\0'; i++) {
-        for (int j = 0; vogais[j] != '\0'; j++) {
-            if (p[i] != vogais[j] && p[i] >= 'a' && p[i] <= 'z') {
+        if (p[i] >= 'a' && p[i] <= 'z') {
+            if (p[i] != 'a' && p[i] != 'e' && p[i] != 'i' && p[i] != 'o' && p[i] != 'u') {
                 p[i] = p[i] - 32;
-                break;
             }
         }
     }

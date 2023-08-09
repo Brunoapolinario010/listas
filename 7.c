@@ -1,17 +1,23 @@
-#include <math.h>
 #include <stdio.h>
 
 void equalizar(int *x, int *y, int *z) {
-    float media, fatorX, fatorY, fatorZ;
+    float media, resto;
 
-    media = (*x + *y + *z) / 3.0;
-    fatorX = media / *x;
-    fatorY = media / *y;
-    fatorZ = media / *z;
+    media = (*x + *y + *z) / 3;
+    resto = (*x + *y + *z) % 3;
 
-    *x = round(*x * fatorX);
-    *y = round(*y * fatorY);
-    *z = round(*z * fatorZ);
+    *x = *x * (media / *x);
+    *y = *y * (media / *y);
+    *z = *z * (media / *z);
+
+    if(resto > 0) {
+        if(resto > 1) {
+            *y += resto / 2;
+            *z += resto / 2;
+        } else {
+            *z += resto;
+        }
+    }
 }
 
 void main() {
