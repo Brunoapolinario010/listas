@@ -14,8 +14,12 @@ char troca(int *a, int *b) {
 }
 
 void main() {
-    int num1 = 3;
-    int num2 = 4;
+    int num1, num2;
+
+    printf("Digite o 1 número: ");
+    scanf("%d", &num1);
+    printf("Digite o 2 número: ");
+    scanf("%d", &num2);
 
     printf("Números iniciais: %d, %d\n", num1, num2);
 
