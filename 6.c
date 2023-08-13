@@ -17,11 +17,14 @@ void trocarDiagonal(int *mat, int tamanho) {
 }
 
 void main() {
-    int mat[3][3] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
+    int mat[3][3];
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("Digite o valor da posição %dx%d: ", i + 1, j + 1);
+            scanf("%d", &mat[i][j]);
+        }
+    }
 
     printf("Matriz original:\n");
     for (int i = 0; i < 3; i++) {
