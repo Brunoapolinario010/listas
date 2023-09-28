@@ -1,11 +1,20 @@
 #include <stdio.h>
 
-int soma(int a, int b) {
-    return a + b;
+void matrizMemPos (int m[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%p ", &m[i][j]);
+        }
+        printf("\n");
+    }
 }
 
 void main() {
-    printf("Teste Instanciar Função\n");
-    int resultado = soma(5, 2);
-    printf("Resultado: %d\n", resultado);
+    int m[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    matrizMemPos(m);
 }
