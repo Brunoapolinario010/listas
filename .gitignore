@@ -7,3 +7,6 @@
 # Unignore all dirs
 !*/
 *.vscode
+
+# Ignore all Java executables
+*.class
