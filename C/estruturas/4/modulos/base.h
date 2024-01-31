@@ -2,7 +2,7 @@
 #define BASE_H
 
 typedef struct node {
-    char data;
+    char *data;
     struct node *next;
 } Node;
 

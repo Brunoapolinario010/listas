@@ -8,9 +8,9 @@ typedef struct linkedstack {
 
 LinkedStack *linkedstack_create();
 
-void linkedstack_push(LinkedStack *stack, char data);
+void linkedstack_push(LinkedStack *stack, char *data);
 
-char linkedstack_pop(LinkedStack *stack);
+char *linkedstack_pop(LinkedStack *stack);
 
 int linkedstack_contains(LinkedStack *stack, char *word);
 

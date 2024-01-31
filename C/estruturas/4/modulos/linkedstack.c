@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "linkedstack.h"
 
 LinkedStack *linkedstack_create() {
@@ -14,7 +15,7 @@ LinkedStack *linkedstack_create() {
   return stack;
 }
 
-void linkedstack_push(LinkedStack *stack, char data) {
+void linkedstack_push(LinkedStack *stack, char *data) {
   Node *node = (Node*) malloc(sizeof(struct node));
 
   if(node == NULL) {
@@ -22,19 +23,30 @@ void linkedstack_push(LinkedStack *stack, char data) {
     exit(1);
   }
 
-  node->data = data;
+  int size = 0;
+  while(data[size] != '\0') {
+    size++;
+  }
+
+  char *word = (char*) malloc((size + 1) * sizeof(char));
+  for(int i = 0; i < size; i++) {
+    word[i] = data[i];
+  }
+  word[size] = '\0';
+
+  node->data = word;
   node->next = stack->top;
   stack->top = node;
 }
 
-char linkedstack_pop(LinkedStack *stack) {
+char *linkedstack_pop(LinkedStack *stack) {
   if(stack->top == NULL) {
     printf("Pilha vazia!\n");
     exit(1);
   }
 
   Node *node = stack->top;
-  char data = node->data;
+  char *data = node->data;
   stack->top = node->next;
   free(node);
   return data;
@@ -43,7 +55,7 @@ char linkedstack_pop(LinkedStack *stack) {
 int linkedstack_contains(LinkedStack *stack, char *word) {
   Node *node = stack->top;
   while(node != NULL) {
-    if(node->data == *word) {
+    if(strcmp(node->data, word) == 0){
       return 1;
     }
     node = node->next;

@@ -9,9 +9,9 @@ typedef struct linkedqueue {
 
 LinkedQueue *linkedqueue_create();
 
-void linkedqueue_enqueue(LinkedQueue *queue, char data);
+void linkedqueue_enqueue(LinkedQueue *queue, char *data);
 
-char linkedqueue_dequeue(LinkedQueue *queue);
+char *linkedqueue_dequeue(LinkedQueue *queue);
 
 int linkedqueue_free(LinkedQueue *queue);
 

@@ -15,7 +15,7 @@ LinkedQueue *linkedqueue_create() {
   return queue;
 }
 
-void linkedqueue_enqueue(LinkedQueue *queue, char data) {
+void linkedqueue_enqueue(LinkedQueue *queue, char *data) {
   Node *node = (Node*) malloc(sizeof(struct node));
 
   if(node == NULL) {
@@ -23,7 +23,18 @@ void linkedqueue_enqueue(LinkedQueue *queue, char data) {
     exit(1);
   }
 
-  node->data = data;
+  int size = 0;
+  while(data[size] != '\0') {
+    size++;
+  }
+
+  char *word = (char*) malloc((size + 1) * sizeof(char));
+  for(int i = 0; i < size; i++) {
+    word[i] = data[i];
+  }
+  word[size] = '\0';
+
+  node->data = word;
   node->next = NULL;
 
   if(queue->front == NULL) {
@@ -35,14 +46,14 @@ void linkedqueue_enqueue(LinkedQueue *queue, char data) {
   queue->tail = node;
 }
 
-char linkedqueue_dequeue(LinkedQueue *queue) {
+char *linkedqueue_dequeue(LinkedQueue *queue) {
   if(queue->front == NULL) {
     printf("Fila vazia!\n");
     exit(1);
   }
 
   Node *node = queue->front;
-  char data = node->data;
+  char *data = node->data;
   queue->front = node->next;
 
   if(queue->front == NULL) {
