@@ -1,9 +1,9 @@
 #ifndef BASE_H
 #define BASE_H
 
-typedef struct node {
+typedef struct _node {
     char *data;
-    struct node *next;
+    struct _node *next;
 } Node;
 
 #endif

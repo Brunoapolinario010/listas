@@ -2,7 +2,7 @@
 #define LINKEDQUEUE_H
 #include "base.h"
 
-typedef struct linkedqueue {
+typedef struct _linkedqueue {
     Node *front;
     Node *tail;
 } LinkedQueue;

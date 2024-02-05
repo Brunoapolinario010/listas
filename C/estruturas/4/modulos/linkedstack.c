@@ -4,10 +4,10 @@
 #include "linkedstack.h"
 
 LinkedStack *linkedstack_create() {
-  LinkedStack *stack = (LinkedStack*) malloc(sizeof(struct linkedstack));
+  LinkedStack *stack = (LinkedStack*) malloc(sizeof(LinkedStack));
 
   if(stack == NULL) {
-    printf("Erro ao alocar memoria!\n");
+    printf("[STACK] Erro ao alocar memoria para Stack!\n");
     exit(1);
   }
 
@@ -16,23 +16,22 @@ LinkedStack *linkedstack_create() {
 }
 
 void linkedstack_push(LinkedStack *stack, char *data) {
-  Node *node = (Node*) malloc(sizeof(struct node));
+  Node *node = (Node*) malloc(sizeof(Node));
 
   if(node == NULL) {
-    printf("Erro ao alocar memoria!\n");
+    printf("[STACK] Erro ao alocar memoria para Node!\n");
     exit(1);
   }
 
-  int size = 0;
-  while(data[size] != '\0') {
-    size++;
-  }
+  int len = strlen(data);
+  char *word = (char*) malloc(sizeof(char) * (len + 1));
 
-  char *word = (char*) malloc((size + 1) * sizeof(char));
-  for(int i = 0; i < size; i++) {
-    word[i] = data[i];
+  if(word == NULL) {
+    printf("[STACK] Erro ao alocar memoria para palavra!\n");
+    exit(1);
   }
-  word[size] = '\0';
+  
+  strcpy(word, data);
 
   node->data = word;
   node->next = stack->top;
@@ -41,7 +40,7 @@ void linkedstack_push(LinkedStack *stack, char *data) {
 
 char *linkedstack_pop(LinkedStack *stack) {
   if(stack->top == NULL) {
-    printf("Pilha vazia!\n");
+    printf("[STACK] Pilha vazia!\n");
     exit(1);
   }
 

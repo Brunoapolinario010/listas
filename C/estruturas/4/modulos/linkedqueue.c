@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "linkedqueue.h"
 
 LinkedQueue *linkedqueue_create() {
-  LinkedQueue *queue = (LinkedQueue*) malloc(sizeof(struct linkedqueue));
+  LinkedQueue *queue = (LinkedQueue*) malloc(sizeof(LinkedQueue));
 
   if(queue == NULL) {
-    printf("Erro ao alocar memoria!\n");
+    printf("[QUEUE] Erro ao alocar memoria para Queue!\n");
     exit(1);
   }
 
@@ -16,25 +17,14 @@ LinkedQueue *linkedqueue_create() {
 }
 
 void linkedqueue_enqueue(LinkedQueue *queue, char *data) {
-  Node *node = (Node*) malloc(sizeof(struct node));
+  Node *node = (Node*) malloc(sizeof(Node));
 
   if(node == NULL) {
-    printf("Erro ao alocar memoria!\n");
+    printf("[QUEUE] Erro ao alocar memoria para Node!\n");
     exit(1);
   }
 
-  int size = 0;
-  while(data[size] != '\0') {
-    size++;
-  }
-
-  char *word = (char*) malloc((size + 1) * sizeof(char));
-  for(int i = 0; i < size; i++) {
-    word[i] = data[i];
-  }
-  word[size] = '\0';
-
-  node->data = word;
+  strcpy(node->data, data);
   node->next = NULL;
 
   if(queue->front == NULL) {
@@ -48,7 +38,7 @@ void linkedqueue_enqueue(LinkedQueue *queue, char *data) {
 
 char *linkedqueue_dequeue(LinkedQueue *queue) {
   if(queue->front == NULL) {
-    printf("Fila vazia!\n");
+    printf("[QUEUE] Fila vazia!\n");
     exit(1);
   }
 

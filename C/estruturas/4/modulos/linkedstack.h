@@ -2,7 +2,7 @@
 #define LINKEDSTACK_H
 #include "base.h"
 
-typedef struct linkedstack {
+typedef struct _linkedstack {
     Node *top;
 } LinkedStack;
 
