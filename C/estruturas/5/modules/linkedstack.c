@@ -74,75 +74,77 @@ int precedence(char c) {
   return 0;
 }
 
-LinkedStack *infix_to_postfix(LinkedStack *postfix, LinkedStack *infix) {
-  Node* node = infix->top;
-  LinkedStack* operators = linkedstack_init();
+char *infix_to_postfix(char *infix) {
+  LinkedStack *aux = linkedstack_init();
+
+  int len = strlen(infix);
   char c;
+  char *postfix = (char *)malloc(len * sizeof(char));
+  int j = 0;
 
-  while (node != NULL) {
-    c = node->value;
+  for (int i = 0; i < len; i++) {
+    c = infix[i];
     if (c >= '0' && c <= '9') {
-      linkedstack_push(postfix, c);
+      postfix[j++] = c;
     } else if (c == '(') {
-      linkedstack_push(operators, c);
+      linkedstack_push(aux, c);
     } else if (c == ')') {
-      while (!linkedstack_empty(operators) && operators->top->value != '(') {
-        linkedstack_push(postfix, linkedstack_pop(operators));
+      while (!linkedstack_empty(aux) && aux->top->value != '(') {
+        postfix[j++] = linkedstack_pop(aux);
       }
-      if(!linkedstack_empty(operators)){
-        linkedstack_pop(operators);
+      linkedstack_pop(aux);
+    } else if (operator(c)) {
+      while (!linkedstack_empty(aux) && precedence(aux->top->value) >= precedence(c)) {
+        postfix[j++] = linkedstack_pop(aux);
       }
-    } else {
-      while (!linkedstack_empty(operators) && operators->top->value != '(' && precedence(operators->top->value) >= precedence(c)) {
-        linkedstack_push(postfix, linkedstack_pop(operators));
-      }
-      linkedstack_push(operators, c);
+      linkedstack_push(aux, c);
     }
-    node = node->next;
   }
 
-  linkedstack_print_iterative(operators->top);
-  while(!linkedstack_empty(operators)) {
-    linkedstack_push(postfix, linkedstack_pop(operators));
+  while (!linkedstack_empty(aux)) {
+    postfix[j++] = linkedstack_pop(aux);
   }
+
+  postfix[j] = '\0';
+  linkedstack_free(aux);
 
   return postfix;
 }
 
-float calculate_postfix_expression(LinkedStack *postfix) {
-  Node *node = postfix->top;
-  LinkedStack *result = linkedstack_init();
+float calculate_postfix_expression(char *postfix) {
+  LinkedStack *aux = linkedstack_init();
+  int len = strlen(postfix);
   char c;
-  float operation = 0;
-  float a, b;
+  float a, b, result;
 
-  while (node != NULL) {
-    c = node->value;
+  for (int i = 0; i < len; i++) {
+    c = postfix[i];
     if (c >= '0' && c <= '9') {
-      linkedstack_push(result, (float) c - '0');
+      linkedstack_push(aux, (float) c - '0');
     } else if (operator(c)) {
-      a = linkedstack_pop(result);
-      b = linkedstack_pop(result);
+      a = linkedstack_pop(aux);
+      b = linkedstack_pop(aux);
       switch (c) {
         case '+':
-          operation = a + b;
+          result = a + b;
           break;
         case '-':
-          operation = b - a;
+          result = b - a;
           break;
         case '*':
-          operation = a * b;
+          result = a * b;
           break;
         case '/':
-          operation = b / a;
+          result = b / a;
           break;
       }
-      linkedstack_push(result, operation);
+      linkedstack_push(aux, result);
     }
-    node = node->next;
   }
 
-  return linkedstack_pop(result);
+  linkedstack_free(aux);
+  
+  return result;
 }
 
 void linkedstack_free(LinkedStack *stack) {
