@@ -4,7 +4,6 @@
 int main() {
   LinkedStack *infix = linkedstack_init();
   LinkedStack *postfix = linkedstack_init();
-  LinkedStack *result = linkedstack_init();
 
   char c;
   while (scanf("%c", &c) != EOF) {
@@ -19,10 +18,12 @@ int main() {
   infix_to_postfix(postfix, infix);
   
   printf("Posfixa: ");
-  linkedstack_print(postfix->top);
+  linkedstack_print_iterative(postfix->top);
+
+  printf("\nResultado: ");
+  printf("%.2f\n", calculate_postfix_expression(postfix));
 
   linkedstack_free(infix);
   linkedstack_free(postfix);
-  linkedstack_free(result);
   return 0;
 }
